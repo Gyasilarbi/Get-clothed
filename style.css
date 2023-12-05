@@ -1,0 +1,94 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#header{
+    font-family: 'Segoe UI';
+    opacity: 0;
+    transform: translateY(50px);
+    animation: fadeIn 1s ease-in-out 1s forwards, slideUp 1s ease-in-out 1s forwards;
+   
+}
+
+.nav1 ul li a:hover{
+    color: darkblue;
+}
+
+@keyframes fadeIn{
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp{
+    0% {
+        transform: translateY(50px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+#btn{
+    position: relative;
+    display: inline-block;
+    width: 250px;
+    height: 60px;
+    background-color: white;
+    color: black;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    line-height: 60px;
+    z-index: 9;
+    transition: all ease 0.5s;
+}
+
+#btn::before{
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background-color: black;
+    opacity: .9;
+    z-index: -1;
+    transition: all ease 0.5s ;
+}
+
+#btn:hover{
+    color: white;
+}
+
+#btn:hover::before{
+    height: 100%;
+    top: 0;
+}
+
+#sec1{
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: opacity 1s, transform 1s;
+}
+
+#sec1.animate{
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
+
+
+
+
+
+
+
+
+

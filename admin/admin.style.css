@@ -1,0 +1,410 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.header{
+    background: radial-gradient(white, turquoise);
+    height: 70vh;
+    width: 100%;
+    margin: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+    position: relative;
+}
+
+.navbar{
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    position: absolute;
+}
+
+.navbar nav{
+    flex: 1;
+    text-align: right;
+    font-family: 'Times New Roman';
+    font-size: 19px;
+}
+
+.navbar nav ul{
+    display: inline-block;
+    list-style-type: none;
+}
+
+.navbar ul li{
+    display: inline-block;
+}
+
+.navbar ul li a{
+    text-decoration: none;
+    color: #555;
+    transition: 0.4s;
+}
+
+.navbar ul li a:hover{
+    color: peachpuff;
+}
+
+#home{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space space-around;
+    position: absolute;
+}
+
+#home p{
+    color: #555;
+    color: rgb(255, 202, 211);
+}
+
+#homep{
+    display: flex;
+    justify-content: center;
+}
+
+#btn{
+    display: inline-block;
+    background: peachpuff;
+    text-decoration: none;
+    color: black;
+    padding: 8px 30px;
+    margin: 30px;
+    border-radius: 30px;
+}
+
+#btn:hover{
+    background-color: turquoise;
+}
+
+.categories{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px;
+}
+
+
+#fp .col-sm-3 img{
+    width: 300px;
+    height: 300px;
+}
+
+.rating .fa{
+    color: #ff523b;
+}
+
+.title{
+    text-align: center;
+    margin: 0 auto 80px;
+    position: relative;
+    line-height: 60px;
+    color: #555;
+}
+
+.title::after{
+    content: '';
+    background: #ff523b;
+    width: 80px;
+    height: 5px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.offer{
+    background: radial-gradient(white, turquoise);
+    padding: 30px 0;
+}
+
+#offer1{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn a{
+    text-decoration: none;
+}
+
+.testimonial{
+    padding-top: 30px;
+}
+
+.testimonial .col-sm-3{
+    text-align: center;
+    padding: 40px 20px;
+    box-shadow: 0 0 20px 0px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.5s;
+}
+
+.testimonial .col-sm-3 img{
+    width: 50px;
+    margin-top: 20px;
+    border-radius: 50%;
+}
+
+.testimonial .col-sm-3:hover{
+    transform: translateY(-10px);
+}
+
+.fa.fa-quote-left{
+    color: #ff523b;
+}
+
+.col-sm-3 p{
+    font-size: 12px;
+    margin: 12px 0;
+}
+
+.testimonial .col-sm-3 h3{
+    font-weight: 600;
+    color: #555;
+    font-size: 16px;
+}
+
+
+#brand{
+    cursor: pointer;
+}
+
+.footer{
+    background: black;
+    color: #8a8a8a;
+    font-weight: 14px;
+}
+
+.footer p{
+    color: #8a8a8a;
+    
+}
+
+.footer h3{
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+#foot{
+    text-align: center;
+}
+
+.footer hr{
+    border: none;
+    background: #b5b5b5;
+    height: 1px;
+    margin: 20px 0;
+}
+
+#foot1{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.foot1 ul li a{
+    color: #b5b5b5;
+    text-decoration: none;
+}
+
+.foot1 ul li a:hover{
+    color: white;
+}
+
+.copyright{
+    text-align: center;
+    color: #b5b5b5;
+}
+
+.social-links {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.social-links a{
+    margin: 0 10px;
+    font-size: 30px;
+    display: inline-block;
+    transition: transform 0.3s;
+}
+
+@keyframes bounce{
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40%{
+        transform: translateY(-15px);
+    }
+    60%{
+        transform: translateY(-10px);
+    }
+}
+
+.social-links a:hover{
+    animation: bounce 0.5s;
+}
+
+.social-links p{
+    text-align: center;
+    color: white;
+}
+
+.fa-twitter{
+    color: white;
+}
+
+.fa-snapchat {
+    color: rgb(202, 202, 6);
+}
+
+.fa-whatsapp {
+    color: green;
+}
+
+.fa-instagram {
+    color: violet; 
+}
+
+.admin{
+    background: url(../Photos/wallpapers/flower_bg.avif);
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 109vh;
+}
+
+.signup{
+    width: 1100px;
+    height: 80vh;
+    background-color: white;
+    padding: 10px;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    border-radius: 25px;
+}
+
+#form{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form{
+    width: 700px;
+}
+
+#form h3{
+    font-family: 'Times New Roman';
+    text-align: center;
+}
+
+#form span{
+    color: rgb(188, 113, 125);
+}
+
+#form input[type="text"]{
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid rgb(241, 191, 200);
+    width: 90%;
+    border-radius: 20px;
+    height: 5%;
+}
+
+#form input[type="password"]{
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid pink;
+    width: 90%;
+    border-radius: 20px;
+    height: 5%;
+}
+
+#form input[type="email"]{
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid rgb(199, 140, 150);
+    width: 90%;
+    border-radius: 20px;
+    height: 5%;
+}
+
+#form input[type="number"]{
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid pink;
+    width: 90%;
+    height: 5%;
+    border-radius: 20px;
+}
+
+#form input[type="tel"]{
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid pink;
+    width: 90%;
+    height: 5%;
+    border-radius: 20px;
+}
+
+#form p a{
+    color: pink;
+    text-decoration: none;
+    font-family: 'Times New Roman';
+    text-align: center;
+}
+
+#form p a:hover{
+    color: white;
+}
+
+#form input[type="submit"]{
+    width: 40%;
+    height: 5%;
+    border: 1px solid pink;
+    border-radius: 25px;
+}
+
+#form input[type="submit"]:hover{
+    background: pink;
+}
+
+.vertical-line {
+    border-left: 1px solid #000;
+    height: 100%; 
+ }
+
+
+
+.modal-body form input[type="text"] {
+    width: 450px;
+    height: 5%;
+    border: 1px solid darkblue;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.modal-body form input[type="number"] {
+    width: 450px;
+    height: 5%;
+    border: 1px solid darkblue;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+h3{
+    text-align: center;
+}
+
+
