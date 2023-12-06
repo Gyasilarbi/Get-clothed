@@ -7,10 +7,6 @@ session_start();
 
 $referenceID = $_SESSION["reference_no"];
 
-// var_dump($_SESSION["reference_no"]);
-// die;
-
-
 if (isset($_SESSION["phone"])) {
     $phone = $_SESSION["phone"];
 } else {
@@ -69,28 +65,6 @@ try {
     echo "Connection failed: " . $e->getMessage();
 }
 $pdo = null;
-
-// try {
-//     $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
-//     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-//     // Fetch the value from the database (replace 'your_query' with your actual SQL query)
-//     $sql = "SELECT * FROM transactions";
-
-//     $stmt = $pdo->prepare($sql);
-//     $stmt->execute();
-//     $result = $stmt->fetch(PDO::FETCH_ASSOC);
-//     // var_dump($result);die;
-
-//     if ($result) {
-//         $reference_no = $result['REFERENCE_NO'];
-//     } else {
-//         echo "No values found in the database.";
-//     }
-// } catch (PDOException $e) {
-//     echo "Connection failed: " . $e->getMessage();
-// }
-// $pdo = null;
 
 if (!empty($_GET["action"])) {
     switch ($_GET['action']) {
@@ -194,7 +168,7 @@ if (!empty($_GET["action"])) {
             <div class="col-md-4 order-md-2 mb-4">
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
                     <span class="text-muted">Order Details</span>
-                    <span class="badge badge-secondary badge-pill"><?php echo $quantity; ?></span>
+                    
                 </h4>
                 <ul class="list-group mb-3">
                     <?php
@@ -254,6 +228,7 @@ if (!empty($_GET["action"])) {
                 <h4 class="mb-3">Payment</h4>
 
                 <div class="d-block my-3">
+                    <h6>Order Number: <strong><?php echo $orderID; ?></strong></h6>
                     <h6>Payment Method: <?php echo $paymentMethod; ?></h6>
                     <h6>Reference ID: <strong><?php echo $referenceID; ?></strong></h6>
                     <h5 class="text-danger">Kindly take note and keep your REFERENCE ID!</h5>

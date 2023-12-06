@@ -163,7 +163,6 @@ if (!empty($_GET["action"])) {
       <div class="col-md-4 order-md-2 mb-4">
         <h4 class="d-flex justify-content-between align-items-center mb-3">
           <span class="text-muted">Your cart</span>
-          <span class="badge badge-secondary badge-pill">3</span>
         </h4>
 
 
@@ -183,7 +182,7 @@ if (!empty($_GET["action"])) {
             <?php
             $total_quantity += $item["quantity"];
             $total_price += ($item["price"] * $item["quantity"]);
-            $_SESSION['totalPrice'] = $total_price; 
+            $_SESSION['totalPrice'] = $total_price;
             ?>
           <?php } ?>
 
@@ -258,7 +257,7 @@ if (!empty($_GET["action"])) {
 
           <div class="d-block my-3">
             <div class="custom-control custom-radio">
-              
+
               <input id="momo" name="paymentMethod" type="radio" class="custom-control-input" value="MOMO" required data-bs-toggle="modal" data-bs-target="#myModal">
               <label class="custom-control-label" for="momo" data-bs-toggle="modal" data-bs-target="#myModal">MTN Mobile Money</label>
 
@@ -274,44 +273,44 @@ if (!empty($_GET["action"])) {
 
                     <!-- Modal body -->
                     <div class="modal-body">
-                      
-                        <h5>Send to: <strong>
-                            <h1>0243009448</h1>
-                          </strong> </h5>
-                        <h5>Name: <strong>
-                            <h1>GetClothed Stores</h1>
-                          </strong> </h5>
-                        <h5>Reference: <strong>
-                            <h1><?php echo $referenceID; ?></h1>
-                            <?php $_SESSION["reference_no"] = $referenceID;
-                            
-                            // var_dump($_SESSION["reference_no"]);
-                            // die;
-                            
-                            ?>
-                          </strong></h5>
-                        <h5 class="text-success">Amount: <strong>
-                            <h1><?php echo "GH₵ " . number_format($total_price, 2) ?></h1>
-                          </strong></h5>
 
-                        <hr class="mb-4">
+                      <h5>Send to: <strong>
+                          <h1>0243009448</h1>
+                        </strong> </h5>
+                      <h5>Name: <strong>
+                          <h1>GetClothed Stores</h1>
+                        </strong> </h5>
+                      <h5>Reference: <strong>
+                          <h1><?php echo $referenceID; ?></h1>
+                          <?php $_SESSION["reference_no"] = $referenceID;
 
-                        <div class="text-start">
-                          <p>How to make payment</p>
-                          <p style="color: grey;">1. Dial *170#.</p>
-                          <p style="color: grey;">2. Choose option "1. Transfer Money".</p>
-                          <p style="color: grey;">3. Choose option "1. MoMo User".</p>
-                          <p style="color: grey;">4. Enter mobile number.</p>
-                          <p style="color: grey;">5. Enter mobile number to confirm number</p>
-                          <p style="color: grey;">6. Enter Amount</p>
-                          <p style="color: grey;">7. Enter Reference <strong>(<?php echo $referenceID; ?>)</strong></p>
-                          <p style="color: grey;">8. Enter your MoMo Pin to confirm transaction.</p>
-                        </div>
+                          // var_dump($_SESSION["reference_no"]);
+                          // die;
 
-                        <hr class="mb-4">
+                          ?>
+                        </strong></h5>
+                      <h5 class="text-success">Amount: <strong>
+                          <h1><?php echo "GH₵ " . number_format($total_price, 2) ?></h1>
+                        </strong></h5>
 
-                        <!-- <input type="submit" name="update" class="btn btn-success" id="update" value="Payment Complete"> -->
-                     
+                      <hr class="mb-4">
+
+                      <div class="text-start">
+                        <p>How to make payment</p>
+                        <p style="color: grey;">1. Dial *170#.</p>
+                        <p style="color: grey;">2. Choose option "1. Transfer Money".</p>
+                        <p style="color: grey;">3. Choose option "1. MoMo User".</p>
+                        <p style="color: grey;">4. Enter mobile number.</p>
+                        <p style="color: grey;">5. Enter mobile number to confirm number</p>
+                        <p style="color: grey;">6. Enter Amount</p>
+                        <p style="color: grey;">7. Enter Reference <strong>(<?php echo $referenceID; ?>)</strong></p>
+                        <p style="color: grey;">8. Enter your MoMo Pin to confirm transaction.</p>
+                      </div>
+
+                      <hr class="mb-4">
+
+                      <!-- <input type="submit" name="update" class="btn btn-success" id="update" value="Payment Complete"> -->
+
                     </div>
 
                     <!-- Modal footer -->
