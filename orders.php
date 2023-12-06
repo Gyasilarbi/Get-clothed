@@ -44,10 +44,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['order_id'] = $orderID;
     $dateTime = generateDateTimeCode();
     $reference_no = $_SESSION["reference_no"];
+    $email = $_SESSION['email'];
 
     
     // INSERT statement for orders
-    $stmt = $conn->prepare("INSERT INTO orders (ORDER_NO, DATE_TIME, CUSTOMER_NAME, ADDRESS, TOTAL, PHONE, CUSTOMER_NO, PAYMENTMETHOD) VALUES (:order_no, :datetime, :customer_name, :address, :total, :phone, :customer_no, :paymentmethod)");
+    $stmt = $conn->prepare("INSERT INTO orders (ORDER_NO, DATE_TIME, CUSTOMER_NAME, ADDRESS, TOTAL, PHONE, CUSTOMER_NO, PAYMENTMETHOD, EMAIL) VALUES (:order_no, :datetime, :customer_name, :address, :total, :phone, :customer_no, :paymentmethod, :email)");
 
     // Assuming $total and $customer_no are defined somewhere
 
@@ -59,6 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bindParam(':phone', $phone);
     $stmt->bindParam(':customer_no', $customer_no);
     $stmt->bindParam(':paymentmethod', $paymentMethod);
+    $stmt->bindParam(':email', $email);
 
     // Execute
     $status = $stmt->execute();

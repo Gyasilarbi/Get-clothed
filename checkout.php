@@ -18,25 +18,6 @@ if (isset($_SESSION["phone"])) {
   die();
 }
 
-// $inactivity_timeout = 630; // 10 minutes 30 seconds
-
-// // Check if the user is logged in and the last activity time is set
-// if (isset($_SESSION["last_activity"])) {
-//   // Calculate the time since the last activity
-//   $elapsed_time = time() - $_SESSION["last_activity"];
-
-//   // If the elapsed time is greater than the inactivity timeout, log the user out
-//   if ($elapsed_time > $inactivity_timeout) {
-//     // Destroy the session
-//     session_unset();
-//     session_destroy();
-
-//     // Redirect to the login page or any other appropriate action
-//     header("Location: customer/login.view.php");
-//     die();
-//   }
-// }
-
 try {
   $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
