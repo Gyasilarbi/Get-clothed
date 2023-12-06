@@ -59,7 +59,7 @@ if (isset($_GET['doneid'])) {
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
             $mail->Port       = 465;
 
-            $mail->setFrom($email, $customer_no);
+            $mail->setFrom($email, 'GETCLOTHED');
             $mail->addAddress($email);
 
             $mail->isHTML(true);
