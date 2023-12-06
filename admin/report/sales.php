@@ -2,37 +2,35 @@
 
 include '../../config.php';
 try {
-    
+
 
     $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $sql = "SELECT ITEM_NAME, SUM(ITEM_TALLY) as total_quantity, SUM(PRICE * ITEM_TALLY) as total_revenue 
-            FROM Items 
-            WHERE ITEM_STATUS = '1' 
-            GROUP BY ITEM_NAME";
-    
-    $stmt = $pdo->query($sql);
 
-    echo "<table border='1'>
-            <tr>
-                <th>Item Name</th>
-                <th>Total Quantity Sold</th>
-                <th>Total Revenue</th>
-            </tr>";
+    // Fetch sales data from the database
+    $sql = "SELECT PRODUCT_ID, SUM(TOTAL) as total_sales FROM sales GROUP BY PRODUCT_ID";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $salesData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            
+    // Close the database connection
+    $pdo = null;
 
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    // Generate a simple HTML report
+    echo "<h2>Daily Sales Report</h2>";
+    echo "<table border='1'>";
+    echo "<tr><th>Product ID</th><th>Total Sales</th></tr>";
+
+    foreach ($salesData as $row) {
         echo "<tr>";
-        echo "<td>{$row['ITEM_NAME']}</td>";
-        echo "<td>{$row['total_quantity']}</td>";
-        echo "<td>{$row['total_revenue']}</td>";
+        echo "<td>" . $row['PRODUCT_ID'] . "</td>";
+        echo "<td>" . $row['total_sales'] . "</td>";
         echo "</tr>";
     }
 
     echo "</table>";
+    echo "<button class='btn btn-info' style='margin: 20px;' onclick='window.print()'><i class='fa fa-print' aria-hidden='true'></i>  Print</button>";
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
-?>

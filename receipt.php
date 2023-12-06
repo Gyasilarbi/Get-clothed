@@ -6,6 +6,10 @@ include './customer/library.php';
 session_start();
 
 $referenceID = $_SESSION["reference_no"];
+$orderID = $_SESSION['order_id'];
+$dateTime = $_SESSION['datetime'];
+$paymentMethod = $_SESSION['paymentmethod'];
+
 
 if (isset($_SESSION["phone"])) {
     $phone = $_SESSION["phone"];
@@ -41,30 +45,7 @@ try {
     echo "Connection failed: " . $e->getMessage();
 }
 $pdo = null;
-
-try {
-    $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Fetch the value from the database (replace 'your_query' with your actual SQL query)
-    $sql = "SELECT * FROM orders";
-
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute();
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    // var_dump($result);die;
-
-    if ($result) {
-        $orderID = $result['ORDER_NO'];
-        $dateTime = $result['DATE_TIME'];
-        $paymentMethod = $result['PAYMENTMETHOD'];
-    } else {
-        echo "No values found in the database.";
-    }
-} catch (PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
-}
-$pdo = null;
+ 
 
 if (!empty($_GET["action"])) {
     switch ($_GET['action']) {

@@ -41,6 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $total_price = $_SESSION['totalPrice'];
     $customer_no = $_SESSION["customer_no"];
     $orderID = generateOrderID();
+    $_SESSION['order_id'] = $orderID;
     $dateTime = generateDateTimeCode();
     $reference_no = $_SESSION["reference_no"];
 
@@ -61,6 +62,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Execute
     $status = $stmt->execute();
+    $_SESSION['paymentmethod'] = $paymentMethod;
+    $_SESSION['datetime'] = $dateTime;
+
     if ($status) {
         $orders = $_SESSION['cart_item'];
         
@@ -73,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $total = $order['price'] * $order['quantity'];
             $paymentMethod = $order['paymentmethod'];
 
-            $stmt2 = $conn->prepare("INSERT INTO orderDetails (ORDER_NO, DATE_TIME, PRODUCT_ID, PRODUCT_NAME, PRODUCT_IMAGE, UNIT_PRICE, QUANTITY, TOTAL ,CUSTOMER_NO, PAYMENTMETHOD) VALUES ( '$orderID', $dateTime, '$orderCode', '$name', '$image', '$price', '$quantity', '$total' , '$customer_no', '$paymentMethod')");
+            $stmt2 = $conn->prepare("INSERT INTO orderDetails (ORDER_NO, DATE_TIME, PRODUCT_ID, PRODUCT_NAME, PRODUCT_IMAGE, UNIT_PRICE, QUANTITY, TOTAL ,CUSTOMER_NO) VALUES ( '$orderID', $dateTime, '$orderCode', '$name', '$image', '$price', '$quantity', '$total' , '$customer_no')");
 
             $status2 = $stmt2->execute();
 

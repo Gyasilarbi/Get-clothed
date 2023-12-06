@@ -1,11 +1,11 @@
 <?php
 
-function generateProductCode($prefix = "GC", $length = 13) {
+function generateProductCode($prefix = "GC", $length = 7) {
     $productCode = $prefix;
 
     for ($i = strlen($prefix); $i < $length; $i++) {
-        // Generate a random number between 1 and 13
-        $randomNumber = rand(1, 13);
+        // Generate a random number between 1 and 7
+        $randomNumber = rand(1, 7);
         
         // Append the random number to the product code
         $productCode .= $randomNumber;
@@ -14,11 +14,11 @@ function generateProductCode($prefix = "GC", $length = 13) {
     return $productCode;
 }
 
-function generateAdminCode($prefixA = "GCA", $length = 11) {
+function generateAdminCode($prefixA = "GCA", $length = 7) {
     $adminCode = $prefixA;
 
     for ($i = strlen($prefixA); $i < $length; $i++) {
-        $randomNumber = rand(1,11);
+        $randomNumber = rand(1,7);
 
         $adminCode .= $randomNumber;
     }
