@@ -396,7 +396,7 @@ $chartDataJSON = json_encode($chartData);
         <a href="" class=""><i class="fa fa-user-circle" aria-hidden="true"></i> Account</a>
         <a href="" class=""><i class="fa fa-question-circle-o" aria-hidden="true"></i> FAQ</a>
         <a href="" class=""><i class="fa fa-phone" aria-hidden="true"></i> Support</a>
-        <a href="" class=""><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+        <a href="logout.php" class=""><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
     </div>
 
     <div id="main">

@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $status2 = $stmt2->execute();
 
             if ($status2) {
-                $stmt4 = $conn->prepare("INSERT INTO sales (PRODUCT_ID, PRODUCT_NAME, PRICE, QUANTITY, TOTAL) VALUES ('$orderCode', '$name', '$price', '$quantity', '$total')");
+                $stmt4 = $conn->prepare("INSERT INTO sales (PRODUCT_ID, PRODUCT_NAME, PRICE, QUANTITY, TOTAL, DATETIME) VALUES ('$orderCode', '$name', '$price', '$quantity', '$total', '$dateTime')");
                 
                 $status4 = $stmt4->execute();
                 
