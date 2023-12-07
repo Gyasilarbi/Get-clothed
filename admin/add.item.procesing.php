@@ -72,10 +72,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $productCode = generateProductCode();
     $dateTimeCode = generateDateTimeCode();
-
+    
     //INSERT statement for customers
     $stmt = $conn->prepare("INSERT INTO Items (ITEM_NAME, ITEM_TYPE, ITEM_COLOR, PRICE, ITEM_TALLY, PRODUCT_NO, ITEM_IMAGE, DATE_TIME, ITEM_DESCR, BRAND) VALUES (:item_name, :item_type, :item_color, :Price, :item_tally, :product_no, :itemImage, :date_time, :item_descr, :brand)");
-
+    
     $stmt->bindParam(':item_name', $item_name);
     $stmt->bindParam(':item_type', $item_type);
     $stmt->bindParam(':item_color', $item_color);
@@ -87,12 +87,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bindParam(':brand', $brand);
     $stmt->bindParam(':item_descr', $item_descr);
     
-
-
+    
+    
     $status = $stmt->execute();
     if ($status) {
         // After successful insertion, set a session variable with a success message
         $_SESSION['success_message'] = "New Item added";
+        $_SESSION['product_no'] = $productCode;
 
         // echo "Data inserted successful";
         header("location: product.php");

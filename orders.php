@@ -5,6 +5,7 @@ include './customer/library.php';
 
 session_start();
 
+
 $name = $address = $phone = $paymentMethod = "";
 $nameErr = $addressErr = $phoneErr = $paymentMethodErr = "";
 // Check if request method is POST
@@ -45,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dateTime = generateDateTimeCode();
     $reference_no = $_SESSION["reference_no"];
     $email = $_SESSION['email'];
+
 
     
     // INSERT statement for orders
