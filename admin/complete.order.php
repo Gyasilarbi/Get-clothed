@@ -64,7 +64,7 @@ if (isset($_GET['doneid'])) {
 
             $mail->isHTML(true);
             $mail->Subject = $subject;
-            $mail->Body    = "Your order with Order Number:" .$order_no. "has been shipped. Kindly have your REFERENCE ID ready to collect order. Thank You!.";
+            $mail->Body    = "Your order with Order Number: " .$order_no." has been shipped. Kindly have your REFERENCE ID ready to collect order. Thank You!.";
             $mail->send();
             echo "Mail has been sent successfully!";
         } catch (Exception $e) {

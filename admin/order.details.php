@@ -1,7 +1,5 @@
 <?php
 
-include '../config.php';
-
 if (isset($_GET['orderid'])) {
     $order_no = $_GET['orderid'];
 

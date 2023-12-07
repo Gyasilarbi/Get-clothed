@@ -111,8 +111,6 @@ $customer_no = $result['CUSTOMER_NO'];
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://fontawesome.com/icons/house?f=classic&s=solid">
-    <link rel="stylesheet" href="https://fontawesome.com/icons/user?f=classic&s=solid">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style>
@@ -369,9 +367,6 @@ $customer_no = $result['CUSTOMER_NO'];
             if (isset($_SESSION['success_message'])) {
                 $successMessage = $_SESSION['success_message'];
 
-                // var_dump($successMessage);
-                // exit;
-
                 // Display the success message in a notification
                 echo "<div class='success-notification'>$successMessage</div>";
 
@@ -383,9 +378,6 @@ $customer_no = $result['CUSTOMER_NO'];
             // Check if a delete message is set in the session
             if (isset($_SESSION['delete_message'])) {
                 $deleteMessage = $_SESSION['delete_message'];
-
-                // var_dump($deleteMessage);
-                // exit;
 
                 // Display the success message in a notification
                 echo "<div class='delete-notification'>$deleteMessage</div>";
@@ -400,9 +392,6 @@ $customer_no = $result['CUSTOMER_NO'];
             if (isset($_SESSION['update_message'])) {
                 $updateMessage = $_SESSION['update_message'];
 
-                // var_dump($updateMessage);
-                // exit;
-
                 // Display the success message in a notification
                 echo "<div class='update-notification'>$updateMessage</div>";
 
@@ -410,14 +399,20 @@ $customer_no = $result['CUSTOMER_NO'];
                 unset($_SESSION['update_message']);
             }
 
+            // Check if a delivered message is set in the session
+            if (isset($_SESSION['delivery_message'])) {
+                $deliveredMessage = $_SESSION['delivery_message'];
 
+                // Display the success message in a notification
+                echo "<div class='delivered-notification'>$deliveredMessage</div>";
+
+                // Clear the success message from the session so it won't be displayed again
+                unset($_SESSION['delivery_message']);
+            }
 
             // Check if a delete message is set in the session
             if (isset($_SESSION['block_message'])) {
                 $blockMessage = $_SESSION['block_message'];
-
-                // var_dump($blockMessage);
-                // exit;
 
                 // Display the success message in a notification
                 echo "<div class='delete-notification'>$blockMessage</div>";
@@ -476,7 +471,32 @@ $customer_no = $result['CUSTOMER_NO'];
                 <a href="" style="text-decoration: none; color: white;">
                     <div class="t_users btn btn-success">
 
-                        <h3><i class="fa fa-money" aria-hidden="true"></i> Total Sales: </h3>
+                        <h3><i class="fa fa-money" aria-hidden="true"></i> Total Sales:  GH₵
+                            <?php
+                            try {
+                                include "../config.php";
+
+                                $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+                                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+                                $sql = "SELECT SUM(TOTAL) as total FROM orders";
+
+                                $stmt = $pdo->prepare($sql);
+                                $stmt->execute();
+
+                                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                                if ($result) {
+                                    $totalValues = $result['total'];
+                                    echo  "<span style='font-size: 30px;'>$totalValues</span>";
+                                } else {
+                                    echo "No values found in the database.";
+                                }
+                            } catch (PDOException $e) {
+                                echo "Connection failed: " . $e->getMessage();
+                            }
+                            ?>
+                        </h3>
 
                     </div>
                 </a>
@@ -572,7 +592,9 @@ $customer_no = $result['CUSTOMER_NO'];
 
             <hr class="mb-4">
 
-            <a href=""><button type="button" id="btn-add" class="btn btn-primary" style="margin: 20px;"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i> Order Details</button></a>
+            <div class="text-strong">
+                <h2>Orders</h2>
+            </div>
             <div class="table-responsive overflow">
                 <table class="table table-hover">
                     <thead>
@@ -684,7 +706,65 @@ $customer_no = $result['CUSTOMER_NO'];
                                     <td><?php echo $address; ?></td>
                                     <td><?php echo $total; ?></td>
                                     <td><?php echo $paymentMethod; ?></td>
-                                    <td></td>
+                                    <td><a href="delivery.php?deliveredid=<?php echo $order_no ?>"><button class="btn btn-success">Delivered</button></a></td>
+                                </tr>
+
+                        <?php }
+                        } catch (PDOException $e) {
+                            echo "Error: " . $e->getMessage();
+                        }
+                        ?>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="text-strong">
+                <h2>Delivered Orders</h2>
+            </div>
+
+            <div class="table-responsive overflow">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">ORDER NO.</th>
+                            <th scope="col">DATE & TIME</th>
+                            <th scope="col">CUSTOMER NAME</th>
+                            <th scope="col">CUSTOMER NO</th>
+                            <th scope="col">PHONE</th>
+                            <th scope="col">ADDRESS</th>
+                            <th scope="col">TOTAL</th>
+                            <th scope="col">PAYMENT METHOD</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+
+                        try {
+                            include '../config.php';
+
+                            $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+                            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+                            $sql = "SELECT * FROM deliveries WHERE DELIVERED = '1'";
+                            $stmt = $pdo->query($sql);
+
+                            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                $order_no = $row['ORDER_NO'];
+                                $datetime = $row['DATETIME'];
+                                $customer_no = $row['CUSTOMER_NO'];
+                                $address = $row['ADDRESS'];
+                                $paymentMethod = $row['PAYMENTMETHOD']; ?>
+
+                                <tr>
+                                    <th scope="row"><?php echo $order_no; ?> </th>
+                                    <td><?php echo $datetime; ?></td>
+                                    <td><?php echo $customer_name; ?></td>
+                                    <td><?php echo $customer_no; ?></td>
+                                    <td><?php echo $phone; ?></td>
+                                    <td><?php echo $address; ?></td>
+                                    <td><?php echo $total; ?></td>
+                                    <td><?php echo $paymentMethod; ?></td>
                                 </tr>
 
                         <?php }

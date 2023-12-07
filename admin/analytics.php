@@ -450,9 +450,6 @@ $chartDataJSON = json_encode($chartData);
             if (isset($_SESSION['update_message'])) {
                 $updateMessage = $_SESSION['update_message'];
 
-                // var_dump($updateMessage);
-                // exit;
-
                 // Display the success message in a notification
                 echo "<div class='update-notification'>$updateMessage</div>";
 
@@ -467,9 +464,6 @@ $chartDataJSON = json_encode($chartData);
             // Check if a delete message is set in the session
             if (isset($_SESSION['block_message'])) {
                 $blockMessage = $_SESSION['block_message'];
-
-                // var_dump($blockMessage);
-                // exit;
 
                 // Display the success message in a notification
                 echo "<div class='delete-notification'>$blockMessage</div>";
