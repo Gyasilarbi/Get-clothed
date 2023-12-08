@@ -176,15 +176,6 @@ if (!empty($_GET["action"])) {
 
         <ul>
           <li><a href="">Hair</a></li>
-
-          <li class="dropdown-nav">
-            <a href="javascript:void(0)" class="dropbtn">Clothing</a>
-            <div class="dropdown-content-nav">
-              <a href="#">Dresses</a>
-              <a href="#">Shorts</a>
-              <a href="#">Skirts</a>
-            </div>
-          </li>
         </ul>
       </div>
     </div>
