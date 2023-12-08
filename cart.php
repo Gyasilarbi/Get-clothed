@@ -67,6 +67,10 @@ if (!empty($_GET["action"])) {
         case "empty":
             unset($_SESSION["cart_item"]);
             break;
+
+        case "close":
+            unset($_SESSION["cart_item"]);
+            break;
     }
 }
 
@@ -152,7 +156,7 @@ if (!empty($_GET["action"])) {
                     ?>
 
                         <tr>
-                            <td><img src="<?php echo "admin/" . $item["image"]; ?>" class="cart-item-image" width="50px" /><?php echo $item["name"];?></td>
+                            <td><img src="<?php echo "admin/" . $item["image"]; ?>" class="cart-item-image" width="50px" /><?php echo $item["name"]; ?></td>
                             <td><?php echo $item["code"]; ?></td>
                             <td style="text-align: right;"><?php echo $item["quantity"]; ?></td>
                             <td style="text-align: right;"><?php echo "GH₵ " . $item["price"]; ?></td>

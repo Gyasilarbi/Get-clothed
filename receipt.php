@@ -45,7 +45,7 @@ try {
     echo "Connection failed: " . $e->getMessage();
 }
 $pdo = null;
- 
+
 
 if (!empty($_GET["action"])) {
     switch ($_GET['action']) {
@@ -106,6 +106,10 @@ if (!empty($_GET["action"])) {
         case "empty":
             unset($_SESSION["cart_item"]);
             break;
+
+        case "close":
+            unset($_SESSION["cart_item"]);
+            break;
     }
 }
 
@@ -135,7 +139,8 @@ if (!empty($_GET["action"])) {
 </head>
 
 <body class="bg-light">
-    <a href="shop.php"><button class="btn btn-danger" style="margin: 20px; position: fixed;">Close</button></a>
+    <!-- <a href="shop.php"><button class="btn btn-danger" style="margin: 20px; position: fixed;">Close</button></a> -->
+    <a href="shop.php?action=close&code=<?php echo $_SESSION["cart_item"]; ?>"><button class="btn btn-danger" style="margin: 20px; position: fixed;">Close</button></a>
 
 
     <div class="container">
@@ -149,7 +154,7 @@ if (!empty($_GET["action"])) {
             <div class="col-md-4 order-md-2 mb-4">
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
                     <span class="text-muted">Order Details</span>
-                    
+
                 </h4>
                 <ul class="list-group mb-3">
                     <?php
@@ -213,7 +218,7 @@ if (!empty($_GET["action"])) {
                     <h6>Payment Method: <?php echo $paymentMethod; ?></h6>
                     <h6>Reference ID: <strong><?php echo $referenceID; ?></strong></h6>
                     <h5 class="text-danger">Kindly take note and keep your REFERENCE ID!</h5>
-                    <button class="btn btn-info" onclick="window.print()"><i class="fa fa-print" aria-hidden="true"></i>  Print</button>
+                    <button class="btn btn-info" onclick="window.print()"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
                 </div>
                 <div class="row">
                     <div class="col-md-6 mb-3">

@@ -62,6 +62,10 @@ if (!empty($_GET["action"])) {
     case "empty":
       unset($_SESSION["cart_item"]);
       break;
+
+    case "close":
+      unset($_SESSION["cart_item"]);
+      break;
   }
 }
 
@@ -216,7 +220,7 @@ if (isset($_GET['detailid'])) {
             <input type="submit" value="Add to Cart" class="btn btn-warning" />
             <button class="btn btn-success" type="button"><a href="checkout.php" id="btnEmpty">Checkout</a></button>
           </form>
-          
+
           <p>more details here</p>
           <hr>
           <p>more images</p>

@@ -61,6 +61,10 @@ if (!empty($_GET["action"])) {
     case "empty":
       unset($_SESSION["cart_item"]);
       break;
+
+    case "close":
+      unset($_SESSION["cart_item"]);
+      break;
   }
 }
 
@@ -110,7 +114,7 @@ if (!empty($_GET["action"])) {
         </div>
         <div class="offcanvas-body">
           <div class="sticky-top bg-white">
-          <button class="btn btn-danger" type="button"><a href="shop.php?action=empty" id="btnEmpty">Empty Cart</a></button>
+            <button class="btn btn-danger" type="button"><a href="shop.php?action=empty" id="btnEmpty">Empty Cart</a></button>
             <button class="btn btn-success" type="button"><a href="cart.php">Open Cart</a></button>
           </div>
 
@@ -269,22 +273,22 @@ if (!empty($_GET["action"])) {
           foreach ($product_array as $key => $value) {
         ?>
             <div class="col-sm-3">
-              
-                <div class="images text-center mx-auto">
+
+              <div class="images text-center mx-auto">
                 <a id="images" href="item.detail.php?detailid=<?php echo $product_array[$key]["PRODUCT_NO"] ?>">
                   <img src="<?php echo 'admin/' . $product_array[$key]["ITEM_IMAGE"]; ?>" width="70%" />
                   <h5><?php echo $product_array[$key]["ITEM_NAME"]; ?></h5>
                   <p><?php echo $product_array[$key]["BRAND"]; ?></p>
                   <p>more details...</p>
                   <p><?php echo "GH₵" . $product_array[$key]["PRICE"]; ?></p>
-              </a>
-                  <!-- Modify the form to include product information -->
-                  <form method="post" action="shop.php?action=add&code=<?php echo $product_array[$key]["PRODUCT_NO"] ?>">
-                    <input type="number" class="product-quantity" name="quantity" value="1" size="2" />
-                    <input type="submit" value="Add to Cart" class="btn btn-warning" />
-                  </form>
-                </div>
-              
+                </a>
+                <!-- Modify the form to include product information -->
+                <form method="post" action="shop.php?action=add&code=<?php echo $product_array[$key]["PRODUCT_NO"] ?>">
+                  <input type="number" class="product-quantity" name="quantity" value="1" size="2" />
+                  <input type="submit" value="Add to Cart" class="btn btn-warning" />
+                </form>
+              </div>
+
 
             </div>
         <?php
