@@ -488,7 +488,7 @@ $customer_no = $result['CUSTOMER_NO'];
 
                                 if ($result) {
                                     $totalValues = $result['total'];
-                                    echo  "<span style='font-size: 30px;'>$totalValues</span>";
+                                    echo  "<span style='font-size: 30px;'>$totalValues.00</span>";
                                 } else {
                                     echo "No values found in the database.";
                                 }

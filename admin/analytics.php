@@ -616,7 +616,7 @@ $uniqueItemTypes = array_unique(array_column($type, 'ITEM_TYPE'));
                     yAxes: [{
                         ticks: {
                             min: 0,
-                            max: 300
+                            max: 1000
                         }
                     }],
                 }
