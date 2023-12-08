@@ -4,6 +4,8 @@ require '../config.php';
 // Start or resume the session
 session_start();
 
+$itemtype = $_GET["itemtype"];
+
 if (isset($_SESSION["email"])) {
     $email = $_SESSION["email"];
 } else {
@@ -62,38 +64,13 @@ try {
 }
 $pdo = null;
 
+$query2 = "SELECT ITEM_TYPE FROM Items";
+$stmt2 = $conn->prepare($query2);
+$stmt2->execute();
+$type = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
-
-// Initialize the $chartData array
-$chartData = [];
-
-try {
-    $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    $sql = "SELECT * FROM Items WHERE ITEM_STATUS = '1'";
-    $stmt = $pdo->query($sql);
-
-    // Populate the $chartData array inside the loop
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $item_name = $row['ITEM_NAME'];
-        $item_tally = $row['ITEM_TALLY'];
-
-        // Add the current item data to the $chartData array
-        $chartData[] = [
-            'item_name' => $item_name,
-            'item_tally' => $item_tally,
-        ];
-    }
-} catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
-}
-
-// Close the database connection
-$pdo = null;
-
-// Convert the $chartData array to JSON for JavaScript
-$chartDataJSON = json_encode($chartData);
+// Extract unique ITEM_TYPE values
+$uniqueItemTypes = array_unique(array_column($type, 'ITEM_TYPE'));
 
 ?>
 
@@ -504,8 +481,62 @@ $chartDataJSON = json_encode($chartData);
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-8" style="border-right: 1px solid black;">
-                <h3>Line Graph</h3>
-                <canvas id="myChart" style="width:50%;"></canvas>
+                <form action="<?php echo $_SERVER["PHP_SELF"] ?>" method="get">
+
+                    <label for="itemtype" class="form-label">
+                        <select name="itemtype" class="px-5 form-select" required>
+                            <option selected disabled>Item Type</option>
+                            <?php
+                            foreach ($uniqueItemTypes as $row) {
+                                echo "<option>{$row}</option>";
+                            } ?>
+
+                        </select>
+                    </label><br>
+                    <button class="btn btn-success submit">Generate</button>
+                </form>
+
+                <h3><?php echo $itemtype; ?></h3>
+
+                <?php
+                try {
+                    $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+                    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+                    $sql = "SELECT Items.ITEM_NAME, Items.PRODUCT_NO, Items.ITEM_TYPE, orderDetails.PRODUCT_ID, orderDetails.PRODUCT_NAME, SUM(orderDetails.TOTAL) AS TOTAL_SALES FROM Items INNER JOIN
+                    orderDetails ON Items.ITEM_NAME = orderDetails.PRODUCT_NAME WHERE Items.ITEM_TYPE = '$itemtype' GROUP BY Items.ITEM_NAME, Items.PRODUCT_NO, Items.ITEM_TYPE, orderDetails.PRODUCT_ID, orderDetails.PRODUCT_NAME ";
+
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->bindParam(':item_type', $row);
+                    $stmt->execute();
+
+                    $chartData = [];
+
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+                        // var_dump($row);die;
+                        $product_id = $row['ITEM_NAME'];
+                        $totalsales = $row['TOTAL_SALES'];
+
+                        // Add the current item data to the $chartData array
+                        $chartData[] = [
+                            'items.product_' => $product_id,
+                            'total_sales' => $totalsales,
+                        ];
+                    }
+                } catch (PDOException $e) {
+                    echo "Query failed: " . $e->getMessage();
+                }
+
+
+                // Close the database connection
+                $pdo = null;
+
+                // Convert the $chartData array to JSON for JavaScript
+                $chartDataJSON = json_encode($chartData);
+                ?>
+
+                <canvas id="myChart" style="width:100%;max-width:1200px"></canvas>
             </div>
             <div class="col-sm-4">
                 <h3>Calculator</h3>
@@ -563,18 +594,17 @@ $chartDataJSON = json_encode($chartData);
 
     <script>
         const chartData = <?php echo $chartDataJSON; ?>;
-        const xValues = chartData.map(data => data.item_name);
-        const yValues = chartData.map(data => data.item_tally);
+        const xValues = chartData.map(data => data['items.product_']);
+        const yValues = chartData.map(data => data.total_sales);
+
+        const barColors = ["green", "blue", "orange", "brown", "yellow", "red", "violet", "black", "gray"];
 
         new Chart("myChart", {
-            type: "line",
+            type: "bar",
             data: {
                 labels: xValues,
                 datasets: [{
-                    fill: false,
-                    lineTension: 0,
-                    backgroundColor: "blue",
-                    borderColor: "green",
+                    backgroundColor: barColors,
                     data: yValues
                 }]
             },
@@ -586,12 +616,16 @@ $chartDataJSON = json_encode($chartData);
                     yAxes: [{
                         ticks: {
                             min: 0,
-                            max: 50
+                            max: 1000
                         }
                     }],
                 }
             }
         });
+
+        function goBack() {
+            window.history.back();
+        }
     </script>
 
     <script>
