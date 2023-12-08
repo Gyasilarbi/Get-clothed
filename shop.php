@@ -3,6 +3,23 @@ include 'config.php';
 
 session_start();
 
+// Check if a search query is provided
+if (!empty($_GET["search_query"]) && !empty($_GET["search_by"])) {
+  $search_query = $_GET["search_query"];
+  $search_by = $_GET["search_by"];
+  
+  // Modify the query to search by ITEM_NAME or ITEM_TYPE
+  $stmt = $conn->prepare("SELECT * FROM Items WHERE ITEM_STATUS = '1' AND $search_by LIKE :search_query");
+  $stmt->bindParam(':search_query', $search_query, PDO::PARAM_STR);
+} else {
+  // Default query without search
+  $stmt = $conn->prepare("SELECT * FROM Items WHERE ITEM_STATUS = '1'");
+}
+
+$stmt->execute();
+$product_array = $stmt->fetchAll();
+
+
 if (!empty($_GET["action"])) {
   switch ($_GET['action']) {
     case "add":
@@ -186,69 +203,6 @@ if (!empty($_GET["action"])) {
         <p>*Enter code EXTRALOVE at checkout to receive discount. Ends 8am UTC on 12 November 2023. Code can be used multiple times per customer up to a maximum pre-discount spend of £500/€690 per order. Can’t be used with other promo codes or on gift vouchers, delivery charges, Premier Delivery or ASOS Marketplace. Country exclusions apply. Selected marked products excluded from promo.</p>
       </div>
     </div>
-    <!-- <div class="selects">
-      <div class="row">
-        <div class="col">
-          <select class="form-select">
-            <option>Recommended</option>
-            <option>What's new?</option>
-            <option>Discounted</option>
-          </select>
-        </div>
-        <div class="col">
-          <select class="form-select">
-            <option>All Bonnets</option>
-            <option>Special Editions</option>
-            <option>Band Bonnets</option>
-            <option>Wrap Bonnets</option>
-          </select>
-        </div>
-        <div class="col">
-          <select class="form-select">
-            <option>All sizes</option>
-            <option>S 2-6</option>
-            <option>M 7-10</option>
-            <option>L 11-14</option>
-            <option>XL 15-18</option>
-            <option>XXL 18+</option>
-          </select>
-        </div>
-        <div class="col">
-          <select class="form-select">
-            <option>Styles</option>
-            <option>Tops</option>
-            <option>Skirts</option>
-            <option>Dresses</option>
-          </select>
-        </div>
-        <div class="col">
-          <select class="form-select">
-            <option>Prices</option>
-            <option>High to Low</option>
-            <option>Low to High</option>
-            <option>Standard</option>
-          </select>
-        </div>
-        <div class="col">
-          <select class="form-select">
-            <option>All Colours</option>
-            <option>Black</option>
-            <option>Yellow</option>
-            <option>Green</option>
-            <option>Pink</option>
-            <option>Blue</option>
-            <option>Brown</option>
-            <option>Purple</option>
-            <option>White</option>
-            <option>Red</option>
-            <option>Orange</option>
-            <option>Navy</option>
-            <option>Multicolors</option>
-
-          </select>
-        </div>
-      </div>
-    </div> -->
 
     <div class="showcase container-fluid">
       <?php
