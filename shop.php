@@ -3,21 +3,6 @@ include 'config.php';
 
 session_start();
 
-// Check if a search query is provided
-if (!empty($_GET["search_query"]) && !empty($_GET["search_by"])) {
-  $search_query = $_GET["search_query"];
-  $search_by = $_GET["search_by"];
-  
-  // Modify the query to search by ITEM_NAME or ITEM_TYPE
-  $stmt = $conn->prepare("SELECT * FROM Items WHERE ITEM_STATUS = '1' AND $search_by LIKE :search_query");
-  $stmt->bindParam(':search_query', $search_query, PDO::PARAM_STR);
-} else {
-  // Default query without search
-  $stmt = $conn->prepare("SELECT * FROM Items WHERE ITEM_STATUS = '1'");
-}
-
-$stmt->execute();
-$product_array = $stmt->fetchAll();
 
 
 if (!empty($_GET["action"])) {
