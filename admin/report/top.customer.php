@@ -1,62 +1,119 @@
 <?php
-
 include '../../config.php';
-try {
 
+try {
     $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Assuming you have a customers table and an orders table
-    $sql = "SELECT * FROM orders ORDER BY TOTAL ASC";
-    
+    $sql = "SELECT
+                customers.CUSTOMER_NO,
+                customers.`NAME`,
+                customers.EMAIL,
+                SUM(orders.TOTAL) AS TOTAL_SPENDING
+            FROM
+                customers
+            INNER JOIN
+                orders ON customers.`NAME` = orders.CUSTOMER_NAME
+            GROUP BY
+                customers.CUSTOMER_NO,
+                customers.`NAME`,
+                customers.EMAIL;";
+
     $stmt = $pdo->query($sql);
 
-    echo "<table border='1'>
-            <tr>
-                <th>Customer ID</th>
-                
-                <th>Total Spending</th>
-            </tr>";
+    // Include the HTML header
+    include 'header.php';
+
+    echo "<a href='../analytics.php'><button class='btn btn-danger' style='position: fixed;'>Close</button></a><br>";
+
+
+    echo "<h2>Customer Spending Report</h2>";
+    echo "<table>";
+    echo "<tr>
+            <th>Customer ID</th>
+            <th>Customer Name</th>
+            <th>Email</th>
+            <th>Total Spending (GH₵)</th>
+          </tr>";
 
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         echo "<tr>";
         echo "<td>{$row['CUSTOMER_NO']}</td>";
-        // echo "<td>{$row['customer_name']}</td>";
-        echo "<td>{$row['TOTAL']}</td>";
+        echo "<td>{$row['NAME']}</td>";
+        echo "<td>{$row['EMAIL']}</td>";
+        echo "<td>{$row['TOTAL_SPENDING']}</td>";
         echo "</tr>";
     }
 
     echo "</table>";
+
+    echo "<button class='btn btn-info print-button' onclick='window.print()'><i class='fa fa-print' aria-hidden='true'></i> Print</button>";
+
+
+
+
+    // Include the HTML footer
+    include 'footer.php';
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
 ?>
 
-<!-- <?php
+<!DOCTYPE html>
+<html lang="en">
 
-include "../../config.php";
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+        }
 
-$pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        h2 {
+            color: #333;
+        }
 
-// Retrieve data from the database
-$sql = "SELECT ORDER_NO, DATE_TIME, CUSTOMER_NAME, ADDRESS, TOTAL, PHONE, CUSTOMER_NO, PAYMENTMETHOD FROM your_table_name ORDER BY TOTAL DESC";
-$result = $pdo->query($sql);
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
 
-// Check if there are results
-if ($result->rowCount() > 0) {
-    // Print the report header
-    echo "| " . str_pad("ORDER_NO", 10) . " | " . str_pad("DATE_TIME", 20) . " | " . str_pad("CUSTOMER_NAME", 20) . " | " . str_pad("ADDRESS", 20) . " | " . str_pad("TOTAL", 10) . " | " . str_pad("PHONE", 15) . " | " . str_pad("CUSTOMER_NO", 15) . " | " . str_pad("PAYMENTMETHOD", 20) . " |\n";
-    echo str_repeat("-", 145) . "\n";
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
 
-    // Print each row of data
-    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-        echo "| " . str_pad($row['ORDER_NO'], 10) . " | " . str_pad($row['DATE_TIME'], 20) . " | " . str_pad($row['CUSTOMER_NAME'], 20) . " | " . str_pad($row['ADDRESS'], 20) . " | " . str_pad($row['TOTAL'], 10) . " | " . str_pad($row['PHONE'], 15) . " | " . str_pad($row['CUSTOMER_NO'], 15) . " | " . str_pad($row['PAYMENTMETHOD'], 20) . " |\n";
-    }
-} else {
-    echo "No results found";
-}
+        th {
+            background-color: #f2f2f2;
+        }
 
-?> -->
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
 
+        .print-button {
+            margin: 20px;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
 
+        .print-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+</body>
+
+</html>

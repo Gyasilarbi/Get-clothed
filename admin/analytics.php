@@ -465,13 +465,7 @@ $uniqueItemTypes = array_unique(array_column($type, 'ITEM_TYPE'));
                 <a href="./report/inventory.php"><button class="btn btn-info">Inventory Report</button></a>
             </div>
             <div class="l">
-                <a href="./report/operational.efficiency.php"><button class="btn btn-info">Operational Efficiency Report</button></a>
-            </div>
-            <div class="l">
                 <a href="./report/top.customer.php"><button class="btn btn-success">Top Customer Report</button></a>
-            </div>
-            <div class="l">
-                <a href="./report/all.reports.php"><button class="btn btn-success">All Reports</button></a>
             </div>
         </div>
     </div>
