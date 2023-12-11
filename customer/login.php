@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $_SESSION["phone"] = $phone;
                 $_SESSION["customer_no"] = $datax['CUSTOMER_NO'];
                 $_SESSION["name"] = $datax['NAME'];
-                $_SESSION["email"] = $datax['EMAIL'];
+                $_SESSION["c.email"] = $datax['EMAIL'];
                 $_SESSION["phone"] = $datax['PHONE'];
                 $_SESSION["address"] = $datax['ADDRESS'];
                 $_SESSION["gender"] = $datax['GENDER'];

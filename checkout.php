@@ -110,9 +110,9 @@ if (!empty($_GET["action"])) {
       unset($_SESSION["cart_item"]);
       break;
 
-    case "close":
-      unset($_SESSION["cart_item"]);
-      break;
+      case "close":
+        unset($_SESSION["cart_item"]);
+        break;
   }
 }
 
