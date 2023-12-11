@@ -468,7 +468,7 @@ $customer_no = $result['CUSTOMER_NO'];
                     </div>
                 </a>
 
-                <a href="" style="text-decoration: none; color: white;">
+                <a href="analytics.php" style="text-decoration: none; color: white;">
                     <div class="t_users btn btn-success">
 
                         <h3><i class="fa fa-money" aria-hidden="true"></i> Total Sales:  GH₵
