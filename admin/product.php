@@ -37,6 +37,8 @@ if (isset($_SESSION["last_activity"])) {
 $_SESSION["last_activity"] = time();
 
 
+$url1=$_SERVER['REQUEST_URI'];
+header("Refresh: 5; URL=$url1");
 
 try {
     $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password);

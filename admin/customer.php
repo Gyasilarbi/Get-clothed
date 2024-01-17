@@ -36,6 +36,8 @@ if (isset($_SESSION["last_activity"])) {
 // Update the last activity time
 $_SESSION["last_activity"] = time();
 
+$url1=$_SERVER['REQUEST_URI'];
+header("Refresh: 5; URL=$url1");
 
 
 try {
