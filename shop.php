@@ -149,7 +149,7 @@ if (!empty($_GET["action"])) {
           <div class="results">
             <ul>
               <li><?php echo "Quantity:" . " " . $total_quantity; ?></li>
-              <li style="color: green;"><strong><?php echo "Total:" . " " . "GH₵ " . number_format($total_price, 2); ?></strong></li>
+              <li style="color: green;"><strong><?php echo "Total:" . " " . "GH₵  " . number_format($total_price, 2); ?></strong></li>
             </ul>
           </div>
 
